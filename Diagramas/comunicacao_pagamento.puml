@@ -1,0 +1,16 @@
+@startuml
+title Comunicação — Registrar Pagamento
+skinparam rectangleBackgroundColor #dae8fc
+skinparam rectangleBorderColor #6c8ebf
+
+rectangle "Atendente" as ATE
+rectangle "PagamentoController" as CTR
+rectangle "OrdemServico" as OS
+rectangle "Pagamento" as PAG
+
+ATE -right-> CTR : 1. buscarOS(numero)
+CTR -right-> OS : 2. buscarPorNumero(numero)
+CTR -down-> PAG : 3. criar(forma, valor, osId)
+OS -down-> PAG : 4. fechar(osId)
+CTR -left-> ATE : 5. emitirRecibo()
+@enduml

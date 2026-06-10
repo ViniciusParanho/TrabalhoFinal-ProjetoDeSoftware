@@ -1,0 +1,36 @@
+@startuml
+title Diagrama de Componentes — SGOM
+skinparam component { BackgroundColor #dae8fc BorderColor #6c8ebf }
+
+package "Aplicação Web (React)" {
+  [Tela de Agendamento]
+  [Tela de Ordem de Serviço]
+  [Tela de Pagamento]
+  [Tela de Relatórios]
+}
+package "API REST (Node.js)" {
+  [AgendamentoController]
+  [OrdemServicoController]
+  [PagamentoController]
+  [RelatorioController]
+  [ClienteService]
+  [VeiculoService]
+}
+database "PostgreSQL" {
+  [Tabela Clientes]
+  [Tabela Veiculos]
+  [Tabela OrdemServico]
+  [Tabela Pagamentos]
+}
+
+[Tela de Agendamento] --> [AgendamentoController]
+[Tela de Ordem de Serviço] --> [OrdemServicoController]
+[Tela de Pagamento] --> [PagamentoController]
+[Tela de Relatórios] --> [RelatorioController]
+[AgendamentoController] --> [ClienteService]
+[OrdemServicoController] --> [VeiculoService]
+[ClienteService] --> [Tabela Clientes]
+[VeiculoService] --> [Tabela Veiculos]
+[OrdemServicoController] --> [Tabela OrdemServico]
+[PagamentoController] --> [Tabela Pagamentos]
+@enduml

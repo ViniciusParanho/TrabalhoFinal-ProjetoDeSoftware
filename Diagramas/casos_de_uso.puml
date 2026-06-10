@@ -1,0 +1,40 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Cliente" as CLI
+actor "Atendente" as ATE
+actor "Mecânico" as MEC
+actor "Gerente" as GER
+
+rectangle "Sistema de Gestão de Oficina Mecânica" {
+  usecase "UC-01 Realizar agendamento" as UC01
+  usecase "UC-02 Consultar status da OS" as UC02
+  usecase "UC-03 Cadastrar cliente" as UC03
+  usecase "UC-04 Cadastrar veículo" as UC04
+  usecase "UC-05 Abrir ordem de serviço" as UC05
+  usecase "UC-06 Registrar pagamento" as UC06
+  usecase "UC-07 Consultar ordens de serviço" as UC07
+  usecase "UC-08 Atualizar status do serviço" as UC08
+  usecase "UC-09 Gerar relatório" as UC09
+  usecase "UC-10 Gerenciar catálogo de serviços" as UC10
+  usecase "UC-11 Cadastrar funcionário" as UC11
+}
+
+CLI --> UC01
+CLI --> UC02
+ATE --> UC03
+ATE --> UC04
+ATE --> UC05
+ATE --> UC06
+ATE --> UC07
+MEC --> UC07
+MEC --> UC08
+GER --> UC09
+GER --> UC10
+GER --> UC11
+GER --> UC03
+UC05 .> UC03 : <<include>>
+UC05 .> UC04 : <<include>>
+@enduml

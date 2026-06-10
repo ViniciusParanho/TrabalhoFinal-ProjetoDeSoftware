@@ -1,0 +1,24 @@
+@startuml
+title Sequência — Registrar Pagamento
+skinparam sequenceArrowThickness 2
+
+actor "Atendente" as ATE
+participant "Tela Pagamento" as TEL
+participant "PagamentoController" as CTR
+participant "OrdemServico" as OS
+participant "Pagamento" as PAG
+
+ATE -> TEL : informarNumeroOS(numero)
+TEL -> CTR : buscarOS(numero)
+CTR -> OS : buscarPorNumero(numero)
+OS --> CTR : dadosOS
+CTR --> TEL : exibirDetalhes()
+ATE -> TEL : informarPagamento(forma, valor)
+TEL -> CTR : registrarPagamento(forma, valor, osId)
+CTR -> PAG : criar(forma, valor, osId)
+PAG --> CTR : pagamentoId
+CTR -> OS : fechar(osId)
+OS --> CTR : osEncerrada
+CTR --> TEL : emitirRecibo()
+TEL --> ATE : exibirRecibo()
+@enduml

@@ -1,0 +1,75 @@
+@startuml
+title Diagrama de Classes — SGOM
+skinparam class { BackgroundColor #dae8fc BorderColor #6c8ebf }
+
+class Cliente {
+  - id: int
+  - nome: String
+  - cpf: String
+  - telefone: String
+  - email: String
+  + cadastrar()
+  + atualizar()
+  + buscarPorCpf()
+}
+class Veiculo {
+  - id: int
+  - placa: String
+  - modelo: String
+  - marca: String
+  - ano: int
+  - cor: String
+  + cadastrar()
+  + buscarPorPlaca()
+}
+class OrdemServico {
+  - numero: int
+  - dataAbertura: Date
+  - dataFechamento: Date
+  - status: String
+  - valorTotal: double
+  + abrir()
+  + fechar()
+  + calcularTotal()
+}
+class Servico {
+  - id: int
+  - descricao: String
+  - preco: double
+  - tempoPrevisto: int
+  + cadastrar()
+  + atualizar()
+}
+class Pagamento {
+  - id: int
+  - dataPagamento: Date
+  - formaPagamento: String
+  - valor: double
+  + registrar()
+  + emitirRecibo()
+}
+class Funcionario {
+  - id: int
+  - nome: String
+  - cargo: String
+  - login: String
+  - senha: String
+  + autenticar()
+}
+class Agendamento {
+  - id: int
+  - dataHora: DateTime
+  - status: String
+  - protocolo: String
+  + confirmar()
+  + cancelar()
+}
+
+Cliente "1" --> "1..*" Veiculo : possui
+Cliente "1" --> "0..*" Agendamento : realiza
+Veiculo "1" --> "0..*" OrdemServico : gera
+OrdemServico "1" --> "1..*" Servico : contém
+OrdemServico "1" --> "1" Pagamento : gera
+OrdemServico "0..*" --> "1" Funcionario : atribuída a
+Agendamento "1" --> "1" OrdemServico : origina
+@enduml

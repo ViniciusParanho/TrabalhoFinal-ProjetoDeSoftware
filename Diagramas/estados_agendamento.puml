@@ -1,0 +1,12 @@
+@startuml
+title Estados — Agendamento
+skinparam state { BackgroundColor #dae8fc BorderColor #6c8ebf }
+
+[*] --> Solicitado : cliente solicita
+Solicitado --> Confirmado : atendente confirma
+Confirmado --> Realizado : cliente comparece
+Realizado --> [*]
+Solicitado --> Cancelado : cliente cancela
+Confirmado --> Cancelado : cliente cancela
+Cancelado --> [*]
+@enduml

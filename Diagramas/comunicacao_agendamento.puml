@@ -1,0 +1,16 @@
+@startuml
+title Comunicação — Realizar Agendamento
+skinparam rectangleBackgroundColor #dae8fc
+skinparam rectangleBorderColor #6c8ebf
+
+rectangle "Cliente" as CLI
+rectangle "AgendamentoController" as CTR
+rectangle "ClienteObj" as CLIObj
+rectangle "Agendamento" as AGE
+
+CLI -right-> CTR : 1. solicitarAgendamento(data, servico, cpf)
+CTR -right-> CLIObj : 2. buscarPorCpf(cpf)
+CTR -down-> AGE : 3. verificarDisponibilidade(data)
+CTR -down-> AGE : 4. criar(clienteId, horario)
+CTR -left-> CLI : 5. confirmarAgendamento(protocolo)
+@enduml

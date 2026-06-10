@@ -1,0 +1,24 @@
+@startuml
+title Sequência — Realizar Agendamento
+skinparam sequenceArrowThickness 2
+
+actor "Cliente" as CLI
+participant "Tela Agendamento" as TEL
+participant "AgendamentoController" as CTR
+participant "Agendamento" as AGE
+participant "ClienteObj" as CLIObj
+
+CLI -> TEL : informarDados(data, servico)
+TEL -> CTR : solicitarAgendamento(data, servico, cpf)
+CTR -> CLIObj : buscarPorCpf(cpf)
+CLIObj --> CTR : dadosCliente
+CTR -> AGE : verificarDisponibilidade(data)
+AGE --> CTR : horariosDisponiveis
+CTR --> TEL : exibirHorarios()
+CLI -> TEL : selecionarHorario(horario)
+TEL -> CTR : confirmarAgendamento(horario)
+CTR -> AGE : criar(clienteId, data, horario)
+AGE --> CTR : protocolo
+CTR --> TEL : confirmacao(protocolo)
+TEL --> CLI : exibirProtocolo()
+@enduml

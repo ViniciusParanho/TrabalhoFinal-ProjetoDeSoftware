@@ -1,0 +1,80 @@
+@startuml
+title Modelo de Dados — SGOM
+skinparam class { BackgroundColor #d5e8d4 BorderColor #82b366 }
+
+entity "CLIENTE" as CLI {
+  * id_cliente : INT (PK)
+  --
+  nome : VARCHAR(100)
+  cpf : CHAR(11)
+  telefone : VARCHAR(15)
+  email : VARCHAR(100)
+}
+entity "VEICULO" as VEI {
+  * id_veiculo : INT (PK)
+  --
+  placa : CHAR(7)
+  modelo : VARCHAR(50)
+  marca : VARCHAR(50)
+  ano : INT
+  cor : VARCHAR(30)
+  id_cliente : INT (FK)
+}
+entity "FUNCIONARIO" as FUN {
+  * id_funcionario : INT (PK)
+  --
+  nome : VARCHAR(100)
+  cargo : VARCHAR(50)
+  login : VARCHAR(50)
+  senha : VARCHAR(255)
+}
+entity "SERVICO" as SER {
+  * id_servico : INT (PK)
+  --
+  descricao : VARCHAR(100)
+  preco : DECIMAL(10,2)
+  tempo_previsto : INT
+}
+entity "ORDEM_SERVICO" as OS {
+  * id_os : INT (PK)
+  --
+  numero : VARCHAR(20)
+  data_abertura : DATE
+  data_fechamento : DATE
+  status : VARCHAR(20)
+  valor_total : DECIMAL(10,2)
+  id_veiculo : INT (FK)
+  id_funcionario : INT (FK)
+}
+entity "OS_SERVICO" as OSS {
+  * id_os : INT (FK)
+  * id_servico : INT (FK)
+  --
+  quantidade : INT
+  preco_unitario : DECIMAL(10,2)
+}
+entity "PAGAMENTO" as PAG {
+  * id_pagamento : INT (PK)
+  --
+  data_pagamento : DATE
+  forma_pagamento : VARCHAR(30)
+  valor : DECIMAL(10,2)
+  id_os : INT (FK)
+}
+entity "AGENDAMENTO" as AGE {
+  * id_agendamento : INT (PK)
+  --
+  data_hora : DATETIME
+  status : VARCHAR(20)
+  protocolo : VARCHAR(20)
+  id_cliente : INT (FK)
+}
+
+CLI ||--o{ VEI : possui
+VEI ||--o{ OS : gera
+FUN ||--o{ OS : atende
+OS ||--o{ OSS : contém
+SER ||--o{ OSS : incluído em
+OS ||--|| PAG : gera
+CLI ||--o{ AGE : realiza
+@enduml

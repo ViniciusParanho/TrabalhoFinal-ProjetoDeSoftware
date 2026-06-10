@@ -1,0 +1,23 @@
+@startuml
+title Sequência — Abrir Ordem de Serviço
+skinparam sequenceArrowThickness 2
+
+actor "Atendente" as ATE
+participant "Tela OS" as TEL
+participant "OrdemServicoController" as CTR
+participant "OrdemServico" as OS
+participant "Veiculo" as VEI
+
+ATE -> TEL : informarPlaca(placa)
+TEL -> CTR : buscarVeiculo(placa)
+CTR -> VEI : buscarPorPlaca(placa)
+VEI --> CTR : dadosVeiculo
+CTR --> TEL : exibirVeiculo()
+ATE -> TEL : selecionarServicos(lista)
+TEL -> CTR : abrirOS(veiculoId, lista)
+CTR -> OS : criar(veiculoId, lista)
+OS -> OS : calcularTotal()
+OS --> CTR : numeroOS
+CTR --> TEL : exibirOS(numeroOS)
+TEL --> ATE : confirmarAbertura()
+@enduml

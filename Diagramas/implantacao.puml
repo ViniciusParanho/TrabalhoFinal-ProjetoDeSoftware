@@ -1,0 +1,19 @@
+@startuml
+title Diagrama de Implantação — SGOM
+skinparam node { BackgroundColor #d5e8d4 BorderColor #82b366 }
+
+node "Dispositivo do Usuário" {
+  artifact "Navegador Web" as NAV
+}
+node "Servidor de Aplicação" {
+  artifact "Aplicação Web (React)" as WEB
+  artifact "API REST (Node.js)" as API
+}
+node "Servidor de Banco de Dados" {
+  artifact "PostgreSQL" as DB
+}
+
+NAV --> WEB : HTTPS
+WEB --> API : JSON/HTTPS
+API --> DB : SQL/TCP
+@enduml

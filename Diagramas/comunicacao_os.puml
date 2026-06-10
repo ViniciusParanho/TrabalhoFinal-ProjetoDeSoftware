@@ -1,0 +1,16 @@
+@startuml
+title Comunicação — Abrir Ordem de Serviço
+skinparam rectangleBackgroundColor #dae8fc
+skinparam rectangleBorderColor #6c8ebf
+
+rectangle "Atendente" as ATE
+rectangle "OrdemServicoController" as CTR
+rectangle "Veiculo" as VEI
+rectangle "OrdemServico" as OS
+
+ATE -right-> CTR : 1. buscarVeiculo(placa)
+CTR -right-> VEI : 2. buscarPorPlaca(placa)
+CTR -down-> OS : 3. criar(veiculoId, listaServicos)
+OS -left-> CTR : 4. retornarNumeroOS()
+CTR -left-> ATE : 5. exibirOS(numeroOS)
+@enduml

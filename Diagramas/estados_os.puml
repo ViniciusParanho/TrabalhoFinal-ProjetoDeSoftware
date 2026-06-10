@@ -1,0 +1,14 @@
+@startuml
+title Estados — Ordem de Serviço
+skinparam state { BackgroundColor #dae8fc BorderColor #6c8ebf }
+
+[*] --> Aberta : abrir OS
+Aberta --> EmAndamento : atribuir mecânico
+EmAndamento --> AguardandoPecas : solicitar peça
+AguardandoPecas --> EmAndamento : peça recebida
+EmAndamento --> Concluida : concluir serviço
+Concluida --> Paga : registrar pagamento
+Paga --> [*]
+Aberta --> Cancelada : cancelar OS
+Cancelada --> [*]
+@enduml
